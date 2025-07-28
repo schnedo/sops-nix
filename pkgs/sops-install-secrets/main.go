@@ -1278,7 +1278,12 @@ func installSecrets(args []string) error {
 			secret.Path = replaceRuntimeDir(secret.Path, rundir)
 			newSecrets = append(newSecrets, secret)
 		}
-		manifest.Secrets = newSecrets
+		var newTemplates []template
+		for _, template := range manifest.Templates {
+			template.Path = replaceRuntimeDir(template.Path, rundir)
+			newTemplates = append(newTemplates, template)
+		}
+		manifest.Templates = newTemplates
 	}
 
 	app := appContext{
